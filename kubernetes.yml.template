@@ -14,7 +14,7 @@ spec:
       labels:
         app: twitter-feed
         commit: ${WERCKER_GIT_COMMIT}
-        label: green
+        color: green
     spec:
       containers:
       - name: twitter-feed
