@@ -25,18 +25,6 @@ push-release:
         working-dir: /pipeline/source
         ports: 8080
         cmd: sh target/bin/start
-#TEST STEP - TO DELETE
-test:
-  steps:
-
-  - bash-template
-
-  - kubectl:
-      name: creating namespace
-      server: $KUBERNETES_MASTER
-      token: $KUBERNETES_AUTH_TOKEN
-      insecure-skip-tls-verify: true
-      command: create namespace $WERCKER_GIT_OWNER; echo creating namespace
 
 #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
 deploy-to-cluster:
@@ -53,7 +41,7 @@ deploy-to-cluster:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f kubernetes.namespace.yml
+      command: create namespace $WERCKER_GIT_OWNER; echo creating namespace
 
   - kubectl:
       name: delete secret
@@ -67,7 +55,7 @@ deploy-to-cluster:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: create secret docker-registry wercker --docker-server=$DOCKER_REGISTRY --docker-email=nobody@oracle.com --docker-username=$DOCKER_USERNAME --docker-password='$OCI_AUTH_TOKEN' --namespace=$NAMESPACE; echo create registry secret
+      command: create secret docker-registry wercker --docker-server=$DOCKER_REGISTRY --docker-email=nobody@oracle.com --docker-username=$DOCKER_USERNAME --docker-password='$OCI_AUTH_TOKEN' --namespace=$WERCKER_GIT_OWNER; echo create registry secret
 
   - script:
       name: "Visualise Kubernetes config"
