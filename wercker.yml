@@ -36,8 +36,8 @@ test:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f kubernetes.namespace.yml
-      
+      command: create namespace $WERCKER_GIT_OWNER; echo creating namespace
+
 #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
 deploy-to-cluster:
   box:
