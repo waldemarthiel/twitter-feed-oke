@@ -22,7 +22,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: TWITTER_SERVICE_PORT
-          value: ${TWITTER_SERVICE_PORT}
+          value: "${TWITTER_SERVICE_PORT}"
         - name: TWITTER_FEED
           value: "twitter-feed"
         ports:
