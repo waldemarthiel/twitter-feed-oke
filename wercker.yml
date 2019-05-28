@@ -69,7 +69,7 @@ deploy-to-cluster:
       command: apply -f kubernetes.yml --namespace=$WERCKER_GIT_OWNER
 
   - script:
-      name: "Visualise Kubernetes config"
+      name: "Visualise Alpha Office config"
       code: cat alpha-office-product-catalog.kubernetes.yml
 
 deploy-alpha:
