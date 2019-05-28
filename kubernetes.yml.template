@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: twitter-feed-v1
-  namespace: ${WERCKER_GIT_OWNER}
+  namespace: ${WERCKER_GIT_OWNER}${TWITTER_SERVICE_PORT}
   labels:
     commit: ${WERCKER_GIT_COMMIT}
 spec:
@@ -43,7 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: twitter-feed
-  namespace: ${WERCKER_GIT_OWNER}
+  namespace: ${WERCKER_GIT_OWNER}${TWITTER_SERVICE_PORT}
   labels:
     app: twitter-feed
     commit: ${WERCKER_GIT_COMMIT}
