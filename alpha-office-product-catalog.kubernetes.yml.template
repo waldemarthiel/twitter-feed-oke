@@ -2,8 +2,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: product-catalog-app
+  namespace: ${WERCKER_GIT_OWNER}
   labels:
-    commit: 4ca160fd05c003e5067fd6d9c8213656b24b962c
+    commit: fb673b8bd1afeb204bf623e4692a2777e8fe3554
 spec:
   replicas: 2
   selector:
@@ -13,18 +14,16 @@ spec:
     metadata:
       labels:
         app: product-catalog-app
-        commit: 4ca160fd05c003e5067fd6d9c8213656b24b962c
+        commit: fb673b8bd1afeb204bf623e4692a2777e8fe3554
     spec:
       containers:
       - name: product-catalog-app-container
-        image: derekoneil/alpha-office-product-catalog:master-4ca160fd05c003e5067fd6d9c8213656b24b962c
+        image: fra.ocir.io/oraseemeaceeociworkshop/wth/alpha-office-product-catalog:master-fb673b8bd1afeb204bf623e4692a2777e8fe3554
         imagePullPolicy: Always
         ports:
         - name: pc-app-port
-          containerPort: 80
+          containerPort: 8080
           protocol: TCP
-      imagePullSecrets:
-        - name: wercker
 ---
 apiVersion: v1
 kind: Service
@@ -32,13 +31,13 @@ metadata:
   name: product-catalog-service
   labels:
     app: product-catalog-app
-    commit: 4ca160fd05c003e5067fd6d9c8213656b24b962c
+    commit: fb673b8bd1afeb204bf623e4692a2777e8fe3554
 spec:
   ports:
-  - port: 30000
-    targetPort: 80
+  - port: ${ALPHA_CATALOG_PORT}
+    targetPort: 8080
   selector:
     app: product-catalog-app
-    commit: 4ca160fd05c003e5067fd6d9c8213656b24b962c
+    commit: fb673b8bd1afeb204bf623e4692a2777e8fe3554
   type: LoadBalancer
 ---

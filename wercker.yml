@@ -67,3 +67,23 @@ deploy-to-cluster:
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
       command: apply -f kubernetes.yml --namespace=$WERCKER_GIT_OWNER
+
+  - script:
+      name: "Visualise Kubernetes config"
+      code: cat alpha-office-product-catalog.kubernetes.yml
+
+deploy-alpha:
+  box:
+      id: alpine
+      cmd: /bin/sh
+
+  steps:
+
+  - bash-template
+
+  - kubectl:
+      name: deploy to kubernetes
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_AUTH_TOKEN
+      insecure-skip-tls-verify: true
+      command: apply -f alpha-office-product-catalog.kubernetes.yml --namespace=$WERCKER_GIT_OWNER
