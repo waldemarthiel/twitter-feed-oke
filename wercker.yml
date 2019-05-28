@@ -41,21 +41,21 @@ deploy-to-cluster:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: create namespace $WERCKER_GIT_OWNER; echo creating namespace
+      command: create namespace $WERCKER_GIT_OWNER$TWITTER_SERVICE_PORT; echo creating namespace
 
   - kubectl:
       name: delete secret
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: delete secret wercker --namespace=$WERCKER_GIT_OWNER; echo delete registry secret
+      command: delete secret wercker --namespace=$WERCKER_GIT_OWNER$TWITTER_SERVICE_PORT; echo delete registry secret
 
   - kubectl:
       name: create secret
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: create secret docker-registry wercker --docker-server=$DOCKER_REGISTRY --docker-email=nobody@oracle.com --docker-username=$DOCKER_USERNAME --docker-password='$OCI_AUTH_TOKEN' --namespace=$WERCKER_GIT_OWNER; echo create registry secret
+      command: create secret docker-registry wercker --docker-server=$DOCKER_REGISTRY --docker-email=nobody@oracle.com --docker-username=$DOCKER_USERNAME --docker-password='$OCI_AUTH_TOKEN' --namespace=$WERCKER_GIT_OWNER$TWITTER_SERVICE_PORT; echo create registry secret
 
   - script:
       name: "Visualise Kubernetes config"
@@ -66,7 +66,7 @@ deploy-to-cluster:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f kubernetes.yml --namespace=$WERCKER_GIT_OWNER
+      command: apply -f kubernetes.yml --namespace=$WERCKER_GIT_OWNER$TWITTER_SERVICE_PORT
 
   - script:
       name: "Visualise Alpha Office config"
@@ -86,4 +86,4 @@ deploy-alpha:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_AUTH_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f alpha-office-product-catalog.kubernetes.yml --namespace=$WERCKER_GIT_OWNER
+      command: apply -f alpha-office-product-catalog.kubernetes.yml --namespace=$WERCKER_GIT_OWNER$TWITTER_SERVICE_PORT

@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: product-catalog-app
-  namespace: ${WERCKER_GIT_OWNER}
+  namespace: ${WERCKER_GIT_OWNER}${TWITTER_SERVICE_PORT}
   labels:
     commit: fb673b8bd1afeb204bf623e4692a2777e8fe3554
 spec:
