@@ -20,6 +20,11 @@ spec:
       - name: product-catalog-app-container
         image: fra.ocir.io/oraseemeaceeociworkshop/wth/alpha-office-product-catalog:master-fb673b8bd1afeb204bf623e4692a2777e8fe3554
         imagePullPolicy: Always
+        env:
+        - name: TWITTER_SERVICE_PORT
+          value: ${TWITTER_SERVICE_PORT}
+        - name: TWITTER_FEED
+          value: "twitter-feed"
         ports:
         - name: pc-app-port
           containerPort: 8080
